@@ -1,6 +1,8 @@
 package com.caiqueubasp.course.entities;
 
-import org.hibernate.annotations.ManyToAny;
+import java.time.Instant;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +19,9 @@ public class Order implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-    private String moment;
-    private String status;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant moment;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -27,11 +30,10 @@ public class Order implements java.io.Serializable {
     public Order() {
     }
 
-    public Order(Long id, String moment, String status, User client) {
+    public Order(Long id, Instant moment, User client) {
         super();
         this.id = id;
         this.moment = moment;
-        this.status = status;
         this.client = client;
     }
 
@@ -51,20 +53,12 @@ public class Order implements java.io.Serializable {
         this.id = id;
     }
 
-    public String getMoment() {
+    public Instant getMoment() {
         return moment;
     }
 
-    public void setMoment(String moment) {
+    public void setMoment(Instant moment) {
         this.moment = moment;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
 }
