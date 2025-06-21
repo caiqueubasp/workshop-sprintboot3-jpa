@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.caiqueubasp.course.entities.Order;
 import com.caiqueubasp.course.entities.User;
+import com.caiqueubasp.course.entities.enums.OrderStatus;
 import com.caiqueubasp.course.repositories.OrderRepository;
 import com.caiqueubasp.course.repositories.UserRepository;
 
@@ -35,9 +36,9 @@ public class TestConfig implements CommandLineRunner {
         Instant inst2 = Instant.parse("2019-07-21T03:42:10Z");
         Instant inst3 = Instant.parse("2019-07-22T15:21:22Z");
 
-        Order o1 = new Order(null, inst1, u1); 
-        Order o2 = new Order(null, inst2, u2);
-        Order o3 = new Order(null, inst3, u1);
+        Order o1 = new Order(null, inst1, OrderStatus.CANCELED, u1); 
+        Order o2 = new Order(null, inst2, OrderStatus.DELIVERED, u2);
+        Order o3 = new Order(null, inst3, OrderStatus.WAITING_PAYMENT, u1);
 
         userRepository.saveAll(
                 Arrays.asList(u1, u2));
