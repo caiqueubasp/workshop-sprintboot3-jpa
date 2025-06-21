@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.caiqueubasp.course.entities.Category;
 import com.caiqueubasp.course.entities.Order;
 import com.caiqueubasp.course.entities.OrderItem;
+import com.caiqueubasp.course.entities.Payment;
 import com.caiqueubasp.course.entities.Product;
 import com.caiqueubasp.course.entities.User;
 import com.caiqueubasp.course.entities.enums.OrderStatus;
@@ -90,11 +91,10 @@ public class TestConfig implements CommandLineRunner {
         orderItemRepository.saveAll(
                 Arrays.asList(oi1, oi2, oi3, oi4));
 
-        // o1.getItems().addAll(Arrays.asList(oi1, oi2));
-        // o2.getItems().addAll(Arrays.asList(oi3));
-        // o3.getItems().addAll(Arrays.asList(oi4));
+       Payment pay1 = new Payment(null, inst2, o2);
+        o2.setPayment(pay1);
 
-        // orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+        orderRepository.save(o2);
 
     }
 
