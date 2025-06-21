@@ -1,5 +1,6 @@
 package com.caiqueubasp.course.resources;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.caiqueubasp.course.entities.User;
 import com.caiqueubasp.course.services.UserService;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 
 
 @RestController
@@ -32,6 +36,17 @@ public class UserResource {
         User obj = userService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
+
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User obj) {
+        obj = userService.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(obj.getId())
+                .toUri();
+        return ResponseEntity.created(uri).body(obj);
+    }
+    
     
     
 }
